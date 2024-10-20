@@ -196,23 +196,23 @@ class TensorData:
         """Return a string representation of the tensor."""
         s = ""
         for index in self.indices():
-            l = ""
+            m = ""
             for i in range(len(index) - 1, -1, -1):
                 if index[i] == 0:
-                    l = "\n%s[" % ("\t" * i) + l
+                    m = "\n%s[" % ("\t" * i) + m
                 else:
                     break
-            s += l
+            s += m
             v = self.get(index)
             s += f"{v:3.2f}"
-            l = ""
+            m = ""
             for i in range(len(index) - 1, -1, -1):
                 if index[i] == self.shape[i] - 1:
-                    l += "]"
+                    m += "]"
                 else:
                     break
-            if l:
-                s += l
+            if m:
+                s += m
             else:
                 s += " "
         return s

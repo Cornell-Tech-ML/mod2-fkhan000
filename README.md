@@ -32,7 +32,7 @@ For the Simple dataset, after some experimentation, I achieved **100% accuracy**
 - **Learning rate**: 0.05
 - **Epochs**: 500
 
-The figure below shows the training log, the loss function over training epochs, and the decision boundary found.
+The figure below shows the training log, the loss function over training epochs, and the decision boundary found. Furthermore, the training time spent per epoch was 0.3 seconds.
 
 <img width="1010" alt="simple_train" src="https://github.com/user-attachments/assets/7ba22e3a-2213-49ed-8d89-bd2bfbd2eb96">
 
@@ -46,7 +46,7 @@ For the Diag dataset, I used the same configuration:
 - **Learning rate**: 0.1
 - **Epochs**: 500
 
-The figure below shows the training log, the loss function over training epochs, and the decision boundary found.
+The figure below shows the training log, the loss function over training epochs, and the decision boundary found. Furthermore, the training time spent per epoch was 0.701 seconds.
 
 
 
@@ -61,7 +61,7 @@ For the Split dataset, I used the same configuration:
 - **Learning rate**: 0.1
 - **Epochs**: 500
 
-The figure below shows the training log, the loss function over training epochs, and the decision boundary found.
+The figure below shows the training log, the loss function over training epochs, and the decision boundary found.Furthermore, the training time spent per epoch was 2.856 seconds.
 
 <img width="1197" alt="split_train" src="https://github.com/user-attachments/assets/ed1e16b2-0ed5-4669-a66c-792e19c4434b">
 
@@ -76,7 +76,7 @@ For the XOR dataset, I again used the configuration with:
 - **Learning rate**: 0.05
 - **Epochs**: 800
 
-The figure below shows the training log, the loss function over training epochs, and the decision boundary found.
+The figure below shows the training log, the loss function over training epochs, and the decision boundary found. Furthermore, the training time spent per epoch was 5.922 seconds.
 
 
 <img width="1196" alt="xor_train" src="https://github.com/user-attachments/assets/484812e5-67de-49e6-9b98-90ce797f996b">

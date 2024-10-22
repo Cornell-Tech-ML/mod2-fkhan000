@@ -266,6 +266,7 @@ class Permute(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, float]:
         """Perform the backward pass for permuting the tensor's dimensions."""
         (ord,) = ctx.saved_values
+
         ord = sorted(ord, key=lambda x: ord[x])
         return grad_output._new(grad_output._tensor.permute(*ord)), 0.0
 
@@ -333,7 +334,7 @@ class MatMul(Function):
         t1, t2 = ctx.saved_values
 
         def transpose(a: Tensor) -> Tensor:
-            order = list(range(a.dims))
+            order = list(range(a._tensor.dims))
             order[-2], order[-1] = order[-1], order[-2]
             return a._new(a._tensor.permute(*order))
 

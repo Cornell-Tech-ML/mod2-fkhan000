@@ -276,11 +276,16 @@ def tensor_map(
         out_index = np.array(out_shape)
         in_index = np.array(in_shape)
 
+        # for each index in the output
         for ordinal_pos in range(len(out)):
+            # we get the multidim index
             to_index(ordinal_pos, out_shape, out_index)
+            # broadcast it to get the corresponding index in the input
             broadcast_index(out_index, out_shape, in_shape, in_index)
+            # get the value of the input
             x = in_storage[index_to_position(in_index, in_strides)]
-            out[index_to_position(out_index, out_strides)] = fn(x)
+            # and then fill output with fn(x)
+            out[ordinal_pos] = fn(x)
 
     return _map
 
@@ -330,14 +335,19 @@ def tensor_zip(
         a_index = np.array(a_shape)
         b_index = np.array(b_shape)
 
+        # for each index in the output
         for i in range(len(out)):
+            # we obtain the multidim index
             to_index(i, out_shape, out_index)
+            # broadcast it to the corresponding indices in a and b
             broadcast_index(out_index, out_shape, a_shape, a_index)
             broadcast_index(out_index, out_shape, b_shape, b_index)
+            # and then get the values of a and b at those indices
             x_a = a_storage[index_to_position(a_index, a_strides)]
             x_b = b_storage[index_to_position(b_index, b_strides)]
-            y = fn(x_a, x_b)
-            out[index_to_position(out_index, out_strides)] = y
+            # finally we fill in the output index with fn(x_a, x_b)
+            out[i] = fn(x_a, x_b)
+            # out[index_to_position(out_index, out_strides)] = fn(x_a, x_b)
 
     return _zip
 
@@ -369,13 +379,14 @@ def tensor_reduce(
         a_strides: Strides,
         reduce_dim: int,
     ) -> None:
-        for index in np.ndindex(*tuple(a_shape)):
-            a_index = np.array(index)
-            out_index = np.zeros_like(out_shape)
+        a_index = np.zeros_like(a_shape)
+        out_index = np.zeros_like(out_shape)
+
+        for i in range(len(a_storage)):
+            to_index(i, a_shape, a_index)
             broadcast_index(a_index, a_shape, out_shape, out_index)
             out_ordinal = index_to_position(out_index, out_strides)
-            a_ordinal = index_to_position(a_index, a_strides)
-            out[out_ordinal] = fn(a_storage[a_ordinal], out[out_ordinal])
+            out[out_ordinal] = fn(a_storage[i], out[out_ordinal])
 
     return _reduce
 

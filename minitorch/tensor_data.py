@@ -54,8 +54,16 @@ def broadcast_index(
     big_index: Index, big_shape: Shape, shape: Shape, out_index: OutIndex
 ) -> None:
     """Map a large tensor index to a smaller one following broadcasting rules."""
+    # If the smaller shape has fewer dimensions then the extra ones to the left that
+    # the bigger shape has can be ignored since by broadcasting we would just repeat the smaller
+    # along those extra dimensions to get the dimensions to match
     start = big_shape.size - shape.size
+
+    # for each dimension in the smaller shape
     for i in range(shape.size):
+        # we fill in out_index with big_index[i+start] when the dims between shape and big_shape agree
+        # but if shape[i] is 1 then we just use 0 since broadcasting had made the shape repeat along that
+        # dimension so we just access the first element in that dimension
         out_index[i] = big_index[i + start] if shape[i] != 1 else 0
 
 

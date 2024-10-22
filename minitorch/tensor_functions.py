@@ -158,6 +158,7 @@ class Mul(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, Tensor]:
         """Perform the backward pass for multiplication."""
         (a, b) = ctx.saved_values
+        # just as with scalar multiplication we multiply b and a with grad output
         return grad_output.f.mul_zip(b, grad_output), grad_output.f.mul_zip(
             a, grad_output
         )
@@ -175,10 +176,10 @@ class Sigmoid(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tensor:
         """Perform the backward pass for the sigmoid function."""
         (sigmoid_t1,) = ctx.saved_values
-        neg_sigmoid = sigmoid_t1.f.neg_map(sigmoid_t1)
-        neg_sigmoid = neg_sigmoid.f.add_zip(neg_sigmoid, tensor([1]))
+        deriv_sigmoid = sigmoid_t1.f.neg_map(sigmoid_t1)
+        deriv_sigmoid = deriv_sigmoid.f.add_zip(deriv_sigmoid, tensor([1]))
         return grad_output.f.mul_zip(
-            grad_output, grad_output.f.mul_zip(sigmoid_t1, neg_sigmoid)
+            grad_output, grad_output.f.mul_zip(sigmoid_t1, deriv_sigmoid)
         )
 
 
@@ -265,7 +266,7 @@ class Permute(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, float]:
         """Perform the backward pass for permuting the tensor's dimensions."""
         (ord,) = ctx.saved_values
-        ord = np.argsort(ord)
+        ord = sorted(ord, key=lambda x: ord[x])
         return grad_output._new(grad_output._tensor.permute(*ord)), 0.0
 
 

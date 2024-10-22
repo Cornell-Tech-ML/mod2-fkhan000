@@ -36,6 +36,7 @@ class Linear(minitorch.Module):
 
     def forward(self, x: minitorch.Tensor):
         (batch_size, in_size) = x.shape
+
         tmp = (x.view(batch_size, in_size, 1) * self.weights.value).sum(1)
         return tmp.view(batch_size, self.out_size) + self.bias.value
 

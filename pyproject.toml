@@ -16,7 +16,6 @@ ignore = [
     "**/mt_diagrams",
     "**/.*",
     "*chainrule.py*",
-    "tests/*.py"
 ]
 venvPath = "."
 venv = ".venv"
@@ -32,7 +31,6 @@ reportIncompatibleMethodOverride = "none"
 reportPrivateUsage = "none"
 reportMissingParameterType = "error"
 reportMissingImports = "none"
-
 
 [tool.pytest.ini_options]
 markers = [
@@ -74,7 +72,6 @@ exclude = [
     "**/mt_diagrams/*",
     "**/minitorch/testing.py",
     "**/docs/**/*",
-    "tests/*.py"
 ]
 
 ignore = [

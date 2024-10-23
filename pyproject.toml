@@ -16,6 +16,7 @@ ignore = [
     "**/mt_diagrams",
     "**/.*",
     "*chainrule.py*",
+    "tests/*.py"
 ]
 venvPath = "."
 venv = ".venv"

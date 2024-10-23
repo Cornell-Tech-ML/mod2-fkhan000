@@ -225,7 +225,7 @@ class Tensor:
 
     @property
     def size(self) -> int:
-        """Returns the size (number of elements) of the tensor."""
+        """Returns the size of the tensor."""
         return self._tensor.size
 
     def chain_rule(self, d_output: Any) -> Iterable[Tuple[Variable, Any]]:
